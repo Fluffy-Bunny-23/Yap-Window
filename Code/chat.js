@@ -702,6 +702,9 @@
           lastMessageDiv = messageDiv;
         } else {
           const messageContent = document.createElement("p");
+          // New processing code here
+          contentWrapper.innerHTML = sanitizedHtml;
+          messageContent.replaceWith(contentWrapper);
           const emojiProcessed = joypixels.shortnameToImage(message.Message);
           const markdownProcessed = marked.parse(emojiProcessed);
           const sanitizedHtml = DOMPurify.sanitize(markdownProcessed);

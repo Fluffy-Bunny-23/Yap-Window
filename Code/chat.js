@@ -51,6 +51,18 @@
       await import(
         "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js"
       );
+    const markedScript = document.createElement('script');
+    markedScript.src = 'https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js';
+    document.head.appendChild(markedScript);
+
+    const dompurifyScript = document.createElement('script');
+    dompurifyScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js';
+    document.head.appendChild(dompurifyScript);
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      headerIds: false
+    });
     /* Initialize Firebase app */
     var app = initializeApp(firebaseConfig); /* Initialize Firebase services */
     database = getDatabase(app);
@@ -668,7 +680,10 @@
           messageDiv.appendChild(headerInfo);
 
           const messageContent = document.createElement("p");
-          messageContent.textContent = message.Message;
+          const emojiProcessed = joypixels.shortnameToImage(message.Message);
+          const markdownProcessed = marked.parse(emojiProcessed);
+          const sanitizedHtml = DOMPurify.sanitize(markdownProcessed);
+          messageContent.innerHTML = sanitizedHtml;
           messageContent.style.marginTop = "5px";
           messageDiv.appendChild(messageContent);
 
@@ -680,7 +695,10 @@
           lastMessageDiv = messageDiv;
         } else {
           const messageContent = document.createElement("p");
-          messageContent.textContent = message.Message;
+          const emojiProcessed = joypixels.shortnameToImage(message.Message);
+          const markdownProcessed = marked.parse(emojiProcessed);
+          const sanitizedHtml = DOMPurify.sanitize(markdownProcessed);
+messageContent.innerHTML = sanitizedHtml;
           messageContent.style.marginTop = "5px";
           lastMessageDiv.appendChild(messageContent);
           lastMessageDiv.dataset.lastMessageId = message.id;
@@ -1329,7 +1347,7 @@
     const messagesRef = ref(database, `Chats/${currentChat}`);
     const messageInput = document.getElementById("message-input");
     let message = messageInput.value.trim();
-    message = convertHtmlToEmoji(joypixels.shortnameToImage(message));
+    message = message.trim(); // Keep raw Markdown
 
     if (message) {
       messageInput.value = "";

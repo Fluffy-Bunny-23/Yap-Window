@@ -54,16 +54,38 @@
       async function openChatScreen() {
         document.getElementById("email-saved-here").textContent = email;
 
-        fetch(
-          "https://raw.githubusercontent.com/Fluffy-Bunny-23/Yap-Window/refs/heads/main/Code/chat.js",
-        )
-          .then((r) => r.text())
-          .then((chatCode) => eval(chatCode))
-          .catch((error) => {
-            console.error("Error loading chat.js:", error);
-            alert("Failed to load chat.js. Check the console for details.");
-          });
-      }
+        // REPLACE WITH:
+const loadChat = async () => {
+  // Load dependencies first
+  await Promise.all([
+    new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js';
+      s.onload = resolve;
+      document.head.appendChild(s);
+    }),
+    new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js';
+      s.onload = resolve;
+      document.head.appendChild(s);
+    })
+  ]);
+
+  // Now load chat.js
+  const chatCode = await fetch("https://raw.githubusercontent.com/.../chat.js")
+    .then(r => r.text());
+  
+  // Create function wrapper for safer execution
+  const chatInit = new Function('joypixels', chatCode);
+  chatInit(window.joypixels);
+};
+
+// Then use in openChatScreen:
+async function openChatScreen() {
+  document.getElementById("email-saved-here").textContent = email;
+  await loadChat(); // Changed from eval()
+}
 
       const mainScreen = document.getElementById("main-screen");
       const loginScreen = document.getElementById("login-screen");

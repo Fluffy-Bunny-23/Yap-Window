@@ -365,16 +365,48 @@
 }
 
 .message {
-	padding: 3px 8px;
-	margin-bottom: 3px;
-	border-radius: 5px;
-	font-size: 12px;
-	width: 95%;
-	max-width: 95%;
-	word-wrap: break-word;
-	background-color: ${isDark ? "#444" : "#e0e0e0"};
-	color: ${isDark ? "#ccc" : "#333"};
-}
+  padding: 3px 8px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  font-size: 12px;
+  width: 95%;
+  max-width: 95%;
+  word-wrap: break-word;
+  background-color: ${isDark ? "#444" : "#e0e0e0"};
+  color: ${isDark ? "#ccc" : "#333"};
+  
+  /* Markdown-specific styling */
+  strong {
+    font-weight: bold;
+  }
+  
+  em {
+    font-style: italic;
+  }
+  
+  code {
+    background-color: ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"};
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+  
+  pre {
+    background-color: ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"};
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    code {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+  
+  a {
+    color: ${isDark ? "#90caf9" : "#1976d2"};
+    text-decoration: underline;
+  }
+  
 
 .message.sent {
 	text-align: right;

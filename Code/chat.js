@@ -26,6 +26,13 @@
     var { initializeApp } = await import(
       "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"
     );
+    const markedScript = document.createElement('script');
+    markedScript.src = 'https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js';
+    document.head.appendChild(markedScript);
+
+    const dompurifyScript = document.createElement('script');
+    dompurifyScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js';
+    document.head.appendChild(dompurifyScript);
     const sc = document.createElement("script");
     sc.setAttribute(
       "src",

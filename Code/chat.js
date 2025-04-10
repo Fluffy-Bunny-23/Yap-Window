@@ -1730,9 +1730,8 @@ Now, make sure that your response calls everyone by the right name and doesn't s
 
   const messageInput = document.getElementById("message-input");
   messageInput.addEventListener("input", (e) => {
-    e.target.value = convertHtmlToEmoji(
-      joypixels.shortnameToImage(e.target.value),
-    );
+    e.target.value = e.target.value.substring(0, 1000);
+  });
     e.target.value = e.target.value.substring(0, 1000);
   });
 

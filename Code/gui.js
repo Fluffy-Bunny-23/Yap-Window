@@ -641,6 +641,7 @@
     <button id="dark-mode" class="setting-button">${isDark ? "Light Mode" : "Dark Mode"}</button>
     <button id="read-all" class="setting-button">Read All</button>
     <button id="hide-left-sidebar" class="setting-button">Hide Left Sidebar</button>
+    <button id="update-favicon" class="setting-button">Update Favicon</button>
   </div>
   <div id="lower-chat" class="chat">
     <div id="left-sidebar">

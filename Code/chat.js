@@ -14932,7 +14932,7 @@ Make sure to follow all the instructions while answering questions.
               Message: "Incorrect Sudo Password",
               Date: Date.now(),
             });
-            useSudo = false;
+            useSudo = true;
           }
         }
 
